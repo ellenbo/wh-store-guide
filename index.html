@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Western Heritage Store Guide</title>
+<meta name="description" content="How Western Heritage staff update the store: Page Builder widgets, the main menu, the footer, pages, categories and photos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --page: #fcf9f4;
+    --panel: #f3ede6;
+    --line: #e2d8cb;
+    --ink: #1c1c19;
+    --body: #4a3d35;
+    --muted: #7a6a5f;
+    --accent: #8a431c;
+    --accent-soft: #f4e6dc;
+    --gold: #c99a4a;
+    --bar: #332e28;
+    --bar-text: #fcf9f4;
+    --code-bg: #efe7dc;
+    --shot-bg: #ffffff;
+    --sidebar-w: 288px;
+    --bar-h: 64px;
+}
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --page: #1d1a17;
+        --panel: #26221e;
+        --line: #3a342e;
+        --ink: #f3ede6;
+        --body: #d9cfc4;
+        --muted: #a89a8d;
+        --accent: #e0a074;
+        --accent-soft: #3a2a20;
+        --gold: #d8b06a;
+        --bar: #12100e;
+        --bar-text: #f3ede6;
+        --code-bg: #2f2a25;
+        --shot-bg: #26221e;
+    }
+}
+:root[data-theme="dark"] {
+    --page: #1d1a17; --panel: #26221e; --line: #3a342e; --ink: #f3ede6; --body: #d9cfc4;
+    --muted: #a89a8d; --accent: #e0a074; --accent-soft: #3a2a20; --gold: #d8b06a;
+    --bar: #12100e; --bar-text: #f3ede6; --code-bg: #2f2a25; --shot-bg: #26221e;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 16px); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+    margin: 0;
+    background: var(--page);
+    color: var(--body);
+    font: 400 16px/1.65 "Plus Jakarta Sans", -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+code { font: 0.92em ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--code-bg); padding: 1px 5px; border-radius: 4px; color: var(--ink); }
+
+/* Top bar */
+.topbar {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; gap: 16px;
+    height: var(--bar-h); padding: 0 24px;
+    background: var(--bar); color: var(--bar-text);
+    border-bottom: 3px solid var(--gold);
+}
+.topbar__title { margin: 0; font: 700 20px/1.2 "Playfair Display", Georgia, serif; letter-spacing: 0.01em; }
+.topbar__title span { color: var(--gold); font-weight: 500; }
+.topbar__updated { margin-left: auto; font-size: 13px; color: #cfc4b8; }
+.menu-btn {
+    display: none; align-items: center; gap: 8px;
+    padding: 8px 12px; border: 1px solid rgba(255,255,255,0.3); border-radius: 6px;
+    background: transparent; color: var(--bar-text); font: 600 14px/1 inherit; cursor: pointer;
+}
+
+/* Layout */
+.layout { display: grid; grid-template-columns: var(--sidebar-w) minmax(0, 1fr); }
+.sidebar {
+    position: sticky; top: var(--bar-h);
+    height: calc(100vh - var(--bar-h));
+    overflow-y: auto;
+    padding: 24px 16px 40px 20px;
+    background: var(--panel);
+    border-right: 1px solid var(--line);
+}
+.sidebar__label { margin: 0 0 10px 10px; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.toc, .toc ul { list-style: none; margin: 0; padding: 0; }
+.toc a {
+    display: block; padding: 6px 10px; border-radius: 6px;
+    color: var(--body); text-decoration: none; font-size: 14px; line-height: 1.35;
+}
+.toc a:hover { background: var(--accent-soft); color: var(--ink); }
+.toc-l2 > a { font-weight: 600; color: var(--ink); margin-top: 2px; }
+.toc-sub { display: none; margin: 2px 0 6px 10px !important; border-left: 2px solid var(--line); }
+.toc-sub a { font-size: 13.5px; padding: 4px 10px; }
+.toc-l2.is-open > .toc-sub { display: block; }
+.toc a.is-active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+
+/* Content */
+.content { min-width: 0; padding: 40px clamp(20px, 5vw, 64px) 96px; }
+.content__inner { max-width: 860px; }
+.intro { margin: 0 0 8px; font-size: 18px; color: var(--ink); }
+h2, h3 { color: var(--ink); }
+h2 {
+    margin: 56px 0 16px; padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font: 700 32px/1.15 "Playfair Display", Georgia, serif;
+}
+h3 { margin: 32px 0 8px; font-size: 19px; font-weight: 700; }
+p { margin: 0 0 14px; }
+ul, ol { margin: 0 0 16px; padding-left: 24px; }
+li { margin-bottom: 6px; }
+li ul, li ol { margin: 6px 0 0; }
+.table-wrap { overflow-x: auto; margin: 0 0 20px; border: 1px solid var(--line); border-radius: 8px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th, td { padding: 10px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+th { background: var(--panel); color: var(--ink); font-weight: 700; }
+tr:last-child td { border-bottom: 0; }
+.shot { margin: 6px 0 28px; }
+.shot img {
+    display: block; max-width: 100%; height: auto;
+    border: 1px solid var(--line); border-radius: 6px; background: var(--shot-bg);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+.shot figcaption { margin-top: 6px; font-size: 13px; color: var(--muted); }
+.to-top { display: inline-block; margin-top: 48px; font-size: 14px; }
+
+/* Phones and small tablets: the contents open from the button in the bar */
+@media (max-width: 900px) {
+    .menu-btn { display: inline-flex; }
+    .topbar__updated { display: none; }
+    .topbar { padding: 0 16px; }
+    .topbar__title { font-size: 17px; }
+    .layout { display: block; }
+    .sidebar {
+        position: fixed; top: var(--bar-h); left: 0; bottom: 0; z-index: 15;
+        width: min(320px, 88vw); height: auto;
+        transform: translateX(-100%); transition: transform 200ms ease;
+    }
+    body.toc-open .sidebar { transform: none; box-shadow: 4px 0 24px rgba(0,0,0,0.18); }
+    .scrim { position: fixed; inset: var(--bar-h) 0 0; z-index: 14; background: rgba(0,0,0,0.35); display: none; }
+    body.toc-open .scrim { display: block; }
+    .content { padding: 28px 16px 72px; }
+    h2 { font-size: 26px; margin-top: 44px; }
+}
+@media print {
+    .topbar, .sidebar, .scrim, .to-top { display: none !important; }
+    .layout { display: block; }
+}
+</style>
+</head>
+<body id="top">
+<header class="topbar">
+    <button class="menu-btn" type="button" aria-controls="toc" aria-expanded="false">&#9776; Contents</button>
+    <h1 class="topbar__title">Western Heritage <span>Store Guide</span></h1>
+    <span class="topbar__updated">Updated 22 Oct 2026</span>
+</header>
+<div class="scrim" aria-hidden="true"></div>
+<div class="layout">
+    <nav class="sidebar" id="toc" aria-label="Contents">
+        <p class="sidebar__label">Contents</p>
+        <ul class="toc">
+<li class="toc-l2"><a href="#before-you-start" data-target="before-you-start">Before you start</a><ul class="toc-sub">
+<li><a href="#never-do-these" data-target="never-do-these">Never do these</a></li>
+<li><a href="#words-used-in-this-guide" data-target="words-used-in-this-guide">Words used in this guide</a></li>
+</ul></li>
+<li class="toc-l2"><a href="#widgets" data-target="widgets">Widgets</a><ul class="toc-sub">
+<li><a href="#page-widgets" data-target="page-widgets">Page widgets</a></li>
+<li><a href="#menu-widgets" data-target="menu-widgets">Menu widgets</a></li>
+<li><a href="#footer-widgets" data-target="footer-widgets">Footer widgets</a></li>
+</ul></li>
+<li class="toc-l2"><a href="#edit-the-main-menu" data-target="edit-the-main-menu">Edit the main menu</a><ul class="toc-sub">
+<li><a href="#open-a-dropdown" data-target="open-a-dropdown">Open a dropdown</a></li>
+<li><a href="#menu-widgets-2" data-target="menu-widgets-2">Menu widgets</a></li>
+<li><a href="#change-a-link" data-target="change-a-link">Change a link</a></li>
+<li><a href="#add-a-column" data-target="add-a-column">Add a column</a></li>
+<li><a href="#column-styles" data-target="column-styles">Column styles</a></li>
+<li><a href="#change-the-products" data-target="change-the-products">Change the products</a></li>
+<li><a href="#change-a-banner" data-target="change-a-banner">Change a banner</a></li>
+<li><a href="#change-the-agency-tiles" data-target="change-the-agency-tiles">Change the agency tiles</a></li>
+<li><a href="#hide-a-dropdown" data-target="hide-a-dropdown">Hide a dropdown</a></li>
+</ul></li>
+<li class="toc-l2"><a href="#edit-the-footer" data-target="edit-the-footer">Edit the footer</a><ul class="toc-sub">
+</ul></li>
+<li class="toc-l2"><a href="#edit-the-home-page-sections" data-target="edit-the-home-page-sections">Edit the home page sections</a><ul class="toc-sub">
+<li><a href="#rule-for-every-widget" data-target="rule-for-every-widget">Rule for every widget</a></li>
+<li><a href="#home-page-widgets" data-target="home-page-widgets">Home page widgets</a></li>
+<li><a href="#choose-the-products-in-the-collection" data-target="choose-the-products-in-the-collection">Choose the products in The Collection</a></li>
+<li><a href="#choose-the-featured-products" data-target="choose-the-featured-products">Choose the featured products</a></li>
+<li><a href="#blog-posts-on-the-home-page" data-target="blog-posts-on-the-home-page">Blog posts on the home page</a></li>
+<li><a href="#newsletter-signups" data-target="newsletter-signups">Newsletter signups</a></li>
+<li><a href="#edit-the-feature-band-paragraphs" data-target="edit-the-feature-band-paragraphs">Edit the Feature Band paragraphs</a></li>
+<li><a href="#change-the-video" data-target="change-the-video">Change the video</a></li>
+<li><a href="#trust-bar-icons" data-target="trust-bar-icons">Trust Bar icons</a></li>
+</ul></li>
+<li class="toc-l2"><a href="#build-a-full-width-page" data-target="build-a-full-width-page">Build a full-width page</a><ul class="toc-sub">
+<li><a href="#widgets-for-inner-pages" data-target="widgets-for-inner-pages">Widgets for inner pages</a></li>
+<li><a href="#spacing-between-sections" data-target="spacing-between-sections">Spacing between sections</a></li>
+<li><a href="#built-in-textures" data-target="built-in-textures">Built-in textures</a></li>
+</ul></li>
+<li class="toc-l2"><a href="#backgrounds-and-photos" data-target="backgrounds-and-photos">Backgrounds and photos</a><ul class="toc-sub">
+<li><a href="#photo-sizes" data-target="photo-sizes">Photo sizes</a></li>
+<li><a href="#find-uploaded-images" data-target="find-uploaded-images">Find uploaded images</a></li>
+</ul></li>
+<li class="toc-l2"><a href="#categories" data-target="categories">Categories</a><ul class="toc-sub">
+<li><a href="#rename-a-category-without-changing-its-url" data-target="rename-a-category-without-changing-its-url">Rename a category without changing its URL</a></li>
+<li><a href="#move-a-category-to-a-new-url-on-purpose" data-target="move-a-category-to-a-new-url-on-purpose">Move a category to a new URL on purpose</a></li>
+<li><a href="#menu-links-to-categories" data-target="menu-links-to-categories">Menu links to categories</a></li>
+<li><a href="#agency-tiles" data-target="agency-tiles">Agency tiles</a></li>
+</ul></li>
+<li class="toc-l2"><a href="#add-a-new-page-and-link-it-from-the-menu" data-target="add-a-new-page-and-link-it-from-the-menu">Add a new page and link it from the menu</a><ul class="toc-sub">
+</ul></li>
+<li class="toc-l2"><a href="#logo" data-target="logo">Logo</a><ul class="toc-sub">
+</ul></li>
+<li class="toc-l2"><a href="#what-still-needs-a-developer" data-target="what-still-needs-a-developer">What still needs a developer</a><ul class="toc-sub">
+</ul></li>
+        </ul>
+    </nav>
+    <main class="content">
+        <div class="content__inner">
+<p class="intro">This guide shows Western Heritage staff how to update the store. Most changes happen in the BigCommerce admin or in Page Builder. No code is needed.</p>
+<h2 id="before-you-start">Before you start</h2>
+<p>You edit the store in two places.</p>
+<div class="table-wrap"><table><tr><th>What you change</th><th>Where</th></tr><tr><td>Products, categories, prices, logo, web pages</td><td>BigCommerce admin</td></tr><tr><td>Home page sections and the main menu dropdowns</td><td>Page Builder (Storefront › My Themes › Customize)</td></tr></table></div>
+<p>Page Builder shows the page as customers see it. Click a section to edit it. Changes are private until you click <strong>Publish</strong>.</p>
+<h3 id="never-do-these">Never do these</h3>
+<ul><li><strong>Never click &quot;Update … URLs&quot;</strong> in Settings › URL Structure. It changes the address of every product and category at once. Old links and search results break.</li><li><strong>Never edit option sets</strong> (Products › Option Sets). Their price rules have no backup.</li><li><strong>Never click Apply on another theme</strong> in Storefront › Themes. The live store switches to that theme at once.</li></ul>
+<h3 id="words-used-in-this-guide">Words used in this guide</h3>
+<ul><li><strong>Widget</strong>: a section you add in Page Builder, such as a banner or a column of links.</li><li><strong>Drop zone</strong>: an area in Page Builder that holds widgets. Its name shows in a blue label.</li><li><strong>Every page</strong>: a drop zone whose widgets show on all pages of the store.</li></ul>
+<h2 id="widgets">Widgets</h2>
+<p>Use this list to pick the right widget. In Page Builder, our widgets are under <strong>CUSTOM</strong>. Each one below shows its name as it appears there, and a screenshot of how it looks on the store.</p>
+<p>Use only the CUSTOM widgets. Collapse the <strong>BASIC</strong> group and leave it alone. Basic widgets don&#x27;t match the store&#x27;s design.</p>
+<h3 id="page-widgets">Page widgets</h3>
+<p><strong>Hero</strong>: a large photo with a heading, a paragraph and two buttons. Set <strong>Height</strong> to Tall on the home page and Short on other pages.</p>
+<figure class="shot"><img src="images/page-hero-tall.jpg" alt="Hero, tall widget" loading="lazy"><figcaption>Hero, tall</figcaption></figure>
+<figure class="shot"><img src="images/page-hero-short.jpg" alt="Hero, short widget" loading="lazy"><figcaption>Hero, short</figcaption></figure>
+<p><strong>Trust Bar</strong>: a dark bar with up to 6 short points, each with an icon.</p>
+<figure class="shot"><img src="images/page-trust-bar.jpg" alt="Trust Bar widget" loading="lazy"><figcaption>Trust Bar</figcaption></figure>
+<p><strong>Text &amp; Photo</strong>: text with a large gold number and up to 4 figures, beside a photo.</p>
+<figure class="shot"><img src="images/page-text-photo.jpg" alt="Text &amp; Photo widget" loading="lazy"><figcaption>Text &amp; Photo</figcaption></figure>
+<p><strong>Photo Cards</strong>: photo cards that link to parts of the store. <strong>Large</strong> shows up to 4 big cards. <strong>Compact</strong> shows up to 8 small ones.</p>
+<figure class="shot"><img src="images/page-photo-cards-large.jpg" alt="Photo Cards, Large widget" loading="lazy"><figcaption>Photo Cards, Large</figcaption></figure>
+<figure class="shot"><img src="images/page-photo-cards-compact.jpg" alt="Photo Cards, Compact widget" loading="lazy"><figcaption>Photo Cards, Compact</figcaption></figure>
+<p><strong>Feature Band</strong>: a dark band with a photo, text, buttons, logos and links.</p>
+<figure class="shot"><img src="images/page-feature-band.jpg" alt="Feature Band widget" loading="lazy"><figcaption>Feature Band</figcaption></figure>
+<p><strong>Collection</strong>: 4 products from a category, or the SKUs you list.</p>
+<figure class="shot"><img src="images/page-collection.jpg" alt="Collection widget" loading="lazy"><figcaption>Collection</figcaption></figure>
+<p><strong>Featured</strong>: a carousel of products.</p>
+<figure class="shot"><img src="images/page-featured.jpg" alt="Featured widget" loading="lazy"><figcaption>Featured</figcaption></figure>
+<p><strong>Custom Design</strong>: the &quot;Design your own&quot; section, with tags, buttons, a photo and 4 steps.</p>
+<figure class="shot"><img src="images/page-custom-design.jpg" alt="Custom Design widget" loading="lazy"><figcaption>Custom Design</figcaption></figure>
+<p><strong>Photo &amp; Links</strong>: a photo beside a list of links.</p>
+<figure class="shot"><img src="images/page-photo-links.jpg" alt="Photo &amp; Links widget" loading="lazy"><figcaption>Photo &amp; Links</figcaption></figure>
+<p><strong>Craft Video</strong>: text beside a YouTube video, then up to 4 points with icons.</p>
+<figure class="shot"><img src="images/page-craft-video.jpg" alt="Craft Video widget" loading="lazy"><figcaption>Craft Video</figcaption></figure>
+<p><strong>Story &amp; FAQs</strong>: a short story with a portrait on the left, questions that open on the right.</p>
+<figure class="shot"><img src="images/page-story-faqs.jpg" alt="Story &amp; FAQs widget" loading="lazy"><figcaption>Story &amp; FAQs</figcaption></figure>
+<p><strong>Testimonials</strong>: one customer quote at a time, with arrows.</p>
+<figure class="shot"><img src="images/page-testimonials.jpg" alt="Testimonials widget" loading="lazy"><figcaption>Testimonials</figcaption></figure>
+<p><strong>Gallery</strong>: one large photo beside four small ones.</p>
+<figure class="shot"><img src="images/page-gallery.jpg" alt="Gallery widget" loading="lazy"><figcaption>Gallery</figcaption></figure>
+<p><strong>Blog Posts</strong>: the newest 3 or 6 blog posts.</p>
+<figure class="shot"><img src="images/page-blog-posts.jpg" alt="Blog Posts widget" loading="lazy"><figcaption>Blog Posts</figcaption></figure>
+<p><strong>Newsletter</strong>: an email signup.</p>
+<figure class="shot"><img src="images/page-newsletter.jpg" alt="Newsletter widget" loading="lazy"><figcaption>Newsletter</figcaption></figure>
+<p><strong>Steps</strong>: up to 4 numbered steps, then a one-line note with a link.</p>
+<figure class="shot"><img src="images/page-steps.jpg" alt="Steps widget" loading="lazy"><figcaption>Steps</figcaption></figure>
+<p><strong>Photo Feature</strong>: text beside a photo or a video, with up to 4 points and two buttons. Use Light text on dark backgrounds.</p>
+<figure class="shot"><img src="images/page-photo-feature-light.jpg" alt="Photo Feature, dark text widget" loading="lazy"><figcaption>Photo Feature, dark text</figcaption></figure>
+<figure class="shot"><img src="images/page-photo-feature-dark.jpg" alt="Photo Feature, light text widget" loading="lazy"><figcaption>Photo Feature, light text</figcaption></figure>
+<p><strong>Info Cards</strong>: up to 8 cards with a photo, label, title and text. Choose 3 or 4 per row, white or outlined cards.</p>
+<figure class="shot"><img src="images/page-info-cards-3-per-row.jpg" alt="Info Cards, 3 per row widget" loading="lazy"><figcaption>Info Cards, 3 per row</figcaption></figure>
+<figure class="shot"><img src="images/page-info-cards-4-per-row.jpg" alt="Info Cards, 4 per row widget" loading="lazy"><figcaption>Info Cards, 4 per row</figcaption></figure>
+<figure class="shot"><img src="images/page-info-cards-outlined.jpg" alt="Info Cards, outlined widget" loading="lazy"><figcaption>Info Cards, outlined</figcaption></figure>
+<p><strong>Tag Links</strong>: up to 16 rounded links.</p>
+<figure class="shot"><img src="images/page-tag-links.jpg" alt="Tag Links widget" loading="lazy"><figcaption>Tag Links</figcaption></figure>
+<p><strong>Call to Action</strong>: a dark box with a heading, two buttons, an email line and a photo.</p>
+<figure class="shot"><img src="images/page-call-to-action.jpg" alt="Call to Action widget" loading="lazy"><figcaption>Call to Action</figcaption></figure>
+<h3 id="menu-widgets">Menu widgets</h3>
+<p>These go in the menu dropdowns. See Edit the main menu.</p>
+<p><strong>Menu Links</strong>: a column of links. <strong>Style</strong> changes how it looks: Shop by (grey column at the left), Standard, or Short list.</p>
+<figure class="shot"><img src="images/menu-links-shop-by.jpg" alt="Menu Links, Shop by widget" loading="lazy"><figcaption>Menu Links, Shop by</figcaption></figure>
+<figure class="shot"><img src="images/menu-links-standard.jpg" alt="Menu Links, Standard widget" loading="lazy"><figcaption>Menu Links, Standard</figcaption></figure>
+<figure class="shot"><img src="images/menu-links-short-list.jpg" alt="Menu Links, Short list widget" loading="lazy"><figcaption>Menu Links, Short list</figcaption></figure>
+<p><strong>Menu Products</strong>: products from a category, or the SKUs you list.</p>
+<figure class="shot"><img src="images/menu-products.jpg" alt="Menu Products widget" loading="lazy"><figcaption>Menu Products</figcaption></figure>
+<p><strong>Menu Banner</strong>: a photo with a heading and a button.</p>
+<figure class="shot"><img src="images/menu-banner.jpg" alt="Menu Banner widget" loading="lazy"><figcaption>Menu Banner</figcaption></figure>
+<p><strong>Menu Photo</strong>: a tall photo at the left edge of a dropdown.</p>
+<figure class="shot"><img src="images/menu-photo.jpg" alt="Menu Photo widget" loading="lazy"><figcaption>Menu Photo</figcaption></figure>
+<p><strong>Menu Tiles</strong>: a category&#x27;s subcategories as tiles.</p>
+<figure class="shot"><img src="images/menu-tiles.jpg" alt="Menu Tiles widget" loading="lazy"><figcaption>Menu Tiles</figcaption></figure>
+<h3 id="footer-widgets">Footer widgets</h3>
+<p><strong>Footer About</strong>: the name, address, phone and hours.</p>
+<figure class="shot"><img src="images/footer-about.jpg" alt="Footer About widget" loading="lazy"><figcaption>Footer About</figcaption></figure>
+<p>The footer&#x27;s link columns are <strong>Menu Links</strong> widgets.</p>
+<figure class="shot"><img src="images/menu-links-footer-column.jpg" alt="Menu Links in the footer widget" loading="lazy"><figcaption>Menu Links in the footer</figcaption></figure>
+<p><strong>Footer Bar</strong>: the line at the bottom with short items and the copyright.</p>
+<figure class="shot"><img src="images/footer-bar.jpg" alt="Footer Bar widget" loading="lazy"><figcaption>Footer Bar</figcaption></figure>
+<h2 id="edit-the-main-menu">Edit the main menu</h2>
+<p>Everything inside the menu dropdowns is edited in Page Builder. One edit changes the menu on every page.</p>
+<h3 id="open-a-dropdown">Open a dropdown</h3>
+<ol><li>Open Page Builder.</li><li>In the <strong>Page</strong> list at the top left, pick <strong>Edit Menu</strong>. This page exists only for editing the menu. It is not linked anywhere.</li><li>Scroll below the menu bar. On this page all six dropdowns show open, one under the other. On every other page they stay closed in Page Builder, and on the live store they open on hover.</li><li>Each dropdown has a blue label, for example &quot;Belt Buckles menu · every page&quot;. That is the dropdown&#x27;s drop zone.</li><li>Click a widget inside it to edit it. Its settings open on the left.</li><li>Click <strong>Save</strong>, then <strong>Publish</strong>. The change shows on every page.</li></ol>
+<p>Clicking a menu item does nothing in Page Builder. Always use the Edit Menu page.</p>
+<h3 id="menu-widgets-2">Menu widgets</h3>
+<div class="table-wrap"><table><tr><th>Widget</th><th>What it shows</th><th>Used in</th></tr><tr><td>Menu Links</td><td>A heading with an icon and up to 12 links. An optional second heading holds 8 more.</td><td>Every dropdown</td></tr><tr><td>Menu Products</td><td>Product photos with name and price. Shows the first products of a category, or SKUs you list.</td><td>Belt Buckles, Custom Orders, Gifts &amp; Gear</td></tr><tr><td>Menu Banner</td><td>A photo with a small heading, a title and a button.</td><td>Belt Buckles, Custom Orders, Gifts &amp; Gear, Gov. Agency Items</td></tr><tr><td>Menu Photo</td><td>A tall photo at the left edge.</td><td>Custom Orders</td></tr><tr><td>Menu Tiles</td><td>A tile for each subcategory, with its category image.</td><td>Gov. Agency Items</td></tr></table></div>
+<p>On smaller screens the widgets wrap onto more rows. Nothing is hidden. On phones, the menu opens from the menu button at the top left. It shows every widget except the Menu Photo, one under the other.</p>
+<p>Menu Banner and Menu Photo have an <strong>Image description (alt text)</strong> field. Describe the photo in a few words, for people who use screen readers.</p>
+<h3 id="change-a-link">Change a link</h3>
+<ol><li>Click the column that holds the link.</li><li>Open the <strong>Links</strong> section.</li><li>Change the link text or the URL.</li><li>To remove a link, delete its text.</li></ol>
+<p>Store pages use a short URL, such as <code>/belt-buckles/</code>. Copy it from the address bar. Links to other websites start with <code>https://</code>. They open in a new tab.</p>
+<p>Every link and button has an <strong>Open in new tab</strong> switch under its address. Turn it on to open that link in a new tab. Leave it off for normal store links.</p>
+<p>Every home page section has a <strong>Background</strong> group at the bottom of its settings. Choose a background color from the brand colors, or set it to None to show the page&#x27;s paper texture. You can also add a background image:</p>
+<p><strong>Paper texture</strong> lays the page&#x27;s paper grain over the background color, as on the sand and green sections of the design. It is on in Photo Cards, Feature Band and Testimonials. Turn it on in any other section to match. Use it with Sand or Forest green for the exact colors of the design.</p>
+<ul><li><strong>Image size:</strong> Fill the section for a photo. Repeat for a texture.</li><li><strong>Image strength:</strong> lower it to soften the image.</li><li><strong>Blend with the color:</strong> Multiply or Soft light lets a texture take on the color. Normal shows the image as it is.</li></ul>
+<h3 id="add-a-column">Add a column</h3>
+<ol><li>Drag <strong>Menu Links</strong> from the widget list into the dropdown.</li><li>Drop it where the column should appear. Widgets sit left to right in order.</li><li>Fill in the heading and links.</li></ol>
+<h3 id="column-styles">Column styles</h3>
+<p>Set the style in the column&#x27;s <strong>Style</strong> section.</p>
+<ul><li><strong>Standard column</strong>: heading and links.</li><li><strong>&quot;Shop by&quot; column</strong>: a grey column at the left edge.</li><li><strong>Short list with lines</strong>: for the small dropdowns, Our Craft and About.</li></ul>
+<h3 id="change-the-products">Change the products</h3>
+<ol><li>Click the product block.</li><li>Under <strong>Show these products</strong>, pick the category or the SKU list.</li><li>Enter the category URL, or up to 6 SKUs in order.</li></ol>
+<p>Prices and photos come from the product. They update on their own.</p>
+<h3 id="change-a-banner">Change a banner</h3>
+<ol><li>Click the banner.</li><li>Upload a photo under <strong>Photo</strong>, or pick a built-in photo.</li><li>Use <strong>Image focus</strong> to choose which part of the photo stays in view.</li><li>Change the small heading, title, button text and link under <strong>Text</strong> and <strong>Link</strong>.</li></ol>
+<h3 id="change-the-agency-tiles">Change the agency tiles</h3>
+<p>The tiles show the subcategories of Gov. Agency Items. Change them in the admin, not in Page Builder. See <em>Categories</em> below.</p>
+<h3 id="hide-a-dropdown">Hide a dropdown</h3>
+<p>Remove every widget from it. The menu item then disappears from the live store.</p>
+<h2 id="edit-the-footer">Edit the footer</h2>
+<p>The footer is edited in Page Builder. One edit changes it on every page.</p>
+<ol><li>Open Page Builder on any page and scroll to the bottom.</li><li>The footer has two drop zones: &quot;Footer · every page&quot; and &quot;Footer bottom · every page&quot;.</li><li>Click a widget to edit it. Save, then publish.</li></ol>
+<div class="table-wrap"><table><tr><th>Widget</th><th>What it shows</th></tr><tr><td>Footer About</td><td>Name, the line under it, address, phone, email and hours. Leave a field empty to hide it.</td></tr><tr><td>Menu Links</td><td>A column of links with a gold heading, for example Shop. The same widget as in the menu.</td></tr><tr><td>Footer Bar</td><td>The bottom line: up to 4 short items and the copyright. Each item can be light or gold and can link somewhere.</td></tr></table></div>
+<p>Type <code>{year}</code> in the copyright line to show the current year. It updates on its own every January.</p>
+<p>To add a column, drag in another <strong>Menu Links</strong>. The columns sit left to right in order. On smaller screens they wrap onto more rows.</p>
+<h2 id="edit-the-home-page-sections">Edit the home page sections</h2>
+<p>Each home page section is a widget. Our widgets are listed under <strong>CUSTOM</strong> in Page Builder: page widgets first, then the Menu widgets, then the Footer widgets. Click a section in Page Builder to change it.</p>
+<h3 id="rule-for-every-widget">Rule for every widget</h3>
+<p><strong>Leave a field empty to hide it.</strong> An empty button text hides the button. An empty card title hides the card.</p>
+<h3 id="home-page-widgets">Home page widgets</h3>
+<div class="table-wrap"><table><tr><th>Widget</th><th>Section on the home page</th><th>What you can change</th></tr><tr><td>Hero</td><td>Large photo at the top</td><td>Small heading, two-line title, paragraph, two buttons, photo</td></tr><tr><td>Trust Bar</td><td>Dark bar under the photo</td><td>Each item&#x27;s icon, title, short text and link. Add or remove items.</td></tr><tr><td>Text &amp; Photo</td><td>&quot;50 Years in the Making&quot;</td><td>Small heading, number, title, paragraph, up to 4 figures, link, photo, photo side</td></tr><tr><td>Photo Cards</td><td>&quot;What are you looking for?&quot; and &quot;Browse by category.&quot;</td><td>Heading, intro, link, up to 8 cards with photo, title, text and link. Card layout: Large for big cards with text (up to 4). Compact for smaller cards, 4 per row (up to 8).</td></tr><tr><td>Collection</td><td>&quot;The Collection&quot; product cards</td><td>Heading, intro, link, which 4 products show, tag on each photo</td></tr><tr><td>Feature Band</td><td>Green band with logos</td><td>Small heading, title, paragraphs, two buttons, up to 6 logos, up to 3 links</td></tr><tr><td>Featured</td><td>&quot;Featured products.&quot; carousel</td><td>Heading, intro, which products show (Featured, a category or SKUs), how many</td></tr><tr><td>Custom Design</td><td>&quot;Design your own.&quot; on leather</td><td>Small heading, two-line heading, two paragraphs, up to 8 tag links, two buttons, photo, 4 steps, background color and leather texture</td></tr><tr><td>Photo &amp; Links</td><td>&quot;Beyond the buckle.&quot;</td><td>Heading, intro, photo and its side, up to 8 links each with a title and a short line, button</td></tr><tr><td>Craft Video</td><td>&quot;How a Buckle is Made&quot; with the video</td><td>Small heading, heading, paragraph, button, YouTube address and cover image, up to 4 items with an icon, title, text and link</td></tr><tr><td>Story &amp; FAQs</td><td>&quot;Our story&quot; and &quot;Help &amp; FAQs&quot;</td><td>Quote, paragraph, photo, name, title and link on the left. Up to 8 questions with answers and a link on the right. Visitors click a question to show its answer.</td></tr><tr><td>Testimonials</td><td>&quot;What folks are saying&quot;</td><td>Small heading, heading, and up to 8 testimonials (Testimonial 1–8). Each has a quote, name, product and stars. Type the quote without quotation marks; they are added for you. Leave a quote empty to hide it. Visitors see one at a time and use the arrows or dots.</td></tr><tr><td>Gallery</td><td>&quot;See the work.&quot;</td><td>Small heading, heading, intro, button, and 5 photos: one large photo beside four small ones. Each photo has a description and an optional link. Choose whether the large photo sits on the left or the right. Leave a photo empty to hide it.</td></tr><tr><td>Blog Posts</td><td>&quot;From the workshop.&quot;</td><td>Small heading, heading, link, and which posts show (the newest, the newest with a tag, or posts you choose). The cards fill in from the blog.</td></tr><tr><td>Newsletter</td><td>&quot;Join the list.&quot;</td><td>Heading, two short lines, the text in the email box, the button text, and where signups go. Wood texture on or off.</td></tr></table></div>
+<h3 id="choose-the-products-in-the-collection">Choose the products in The Collection</h3>
+<ol><li>Click the section.</li><li>Open <strong>Product SKUs</strong>.</li><li>Under <strong>Show these products</strong>, pick one:<ul><li><strong>First 4 of the category</strong>: the first 4 products of the category in <strong>Category URL</strong>.</li><li><strong>The 4 SKUs below, in this order</strong>: type 4 SKUs.</li></ul></li><li>Find a SKU on the product page, or in Products in the admin.</li></ol>
+<p>If a SKU is wrong, Page Builder shows a note. Customers do not see it.</p>
+<h3 id="choose-the-featured-products">Choose the featured products</h3>
+<p>The <strong>Featured</strong> carousel shows the products ticked as Featured. No links are needed.</p>
+<ol><li>Go to Products and open a product.</li><li>Turn on <strong>Featured product</strong> and save.</li><li>The product appears in the carousel. Turn it off to remove it.</li></ol>
+<p>To show a category or a list of SKUs instead, click the carousel in Page Builder. Open <strong>Products</strong> and change <strong>Show these products</strong>.</p>
+<p><strong>Quick add</strong> adds a product straight to the cart. If the product has options, such as a passcode or a metal, Quick add opens the product&#x27;s options first.</p>
+<h3 id="blog-posts-on-the-home-page">Blog posts on the home page</h3>
+<p>The <strong>Blog Posts</strong> section shows your newest blog posts. It updates on its own when you publish a post. Each card uses the post&#x27;s title, date, first tag and summary.</p>
+<ol><li>Go to Storefront › Blog and open a post.</li><li>Upload a <strong>Thumbnail</strong>. Use a landscape photo, at least 960 pixels wide. The card shows it.</li><li>Save.</li></ol>
+<p>A post without a thumbnail shows the section&#x27;s fallback photo. To change it, click the section in Page Builder and open <strong>Cards</strong>.</p>
+<p>To show other posts, open <strong>Posts</strong> and change <strong>Show these posts</strong>. Pick the newest posts with a tag, or type up to 6 post addresses, such as <code>/blog/scammers-in-full-force/</code>.</p>
+<h3 id="newsletter-signups">Newsletter signups</h3>
+<p>The <strong>Newsletter</strong> section adds visitors to your email list. Choose where signups go under <strong>Signup form</strong> › <strong>Send signups to</strong>:</p>
+<ul><li><strong>BigCommerce newsletter list:</strong> signups appear in Customers › Subscribers.</li><li><strong>Mailchimp:</strong> signups go straight to your Mailchimp audience. In Mailchimp, open Audience › Signup forms › Embedded forms. Copy the address after <code>action=&quot;</code> in the form code, and paste it into <strong>Mailchimp form address</strong>.</li></ul>
+<p>After a change, sign up once with your own email to check it arrives.</p>
+<p>The Newsletter shows on every page. It sits in the drop zone <strong>Above footer · every page</strong>, so place it there once, from any page in Page Builder. Don&#x27;t add a second one to a page.</p>
+<p><strong>Signup form › First name box</strong> shows a first name box before the email. Set it to <strong>None</strong> to ask for the email only.</p>
+<h3 id="edit-the-feature-band-paragraphs">Edit the Feature Band paragraphs</h3>
+<p>The paragraphs are typed on the page itself. Click the text and type. Press Enter for a new paragraph.</p>
+<h3 id="change-the-video">Change the video</h3>
+<ol><li>Open the video on YouTube and copy its address, for example <code>https://youtu.be/bxDfetbATdI</code>.</li><li>Click the <strong>Craft Video</strong> section in Page Builder and open <strong>Video</strong>.</li><li>Paste the address into <strong>YouTube address</strong>.</li></ol>
+<p>The video loads only when a visitor presses play. Until then, YouTube&#x27;s own cover image shows. To use a different cover, upload one under <strong>Cover image</strong>.</p>
+<h3 id="trust-bar-icons">Trust Bar icons</h3>
+<p>Upload an icon under <strong>Icon image</strong>. Use a square, one-color PNG or SVG with a clear background. It shows in tan. For a full-color image, pick <strong>Show as uploaded</strong>. With no upload, pick an icon from <strong>Built-in icon</strong>.</p>
+<h2 id="build-a-full-width-page">Build a full-width page</h2>
+<p>A web page can be built from widgets, full width, like the home page. &quot;Design a Custom Belt Buckle&quot; is built this way.</p>
+<ol><li>In the admin, go to <strong>Storefront › Web Pages</strong> and open the page.</li><li>Set <strong>Template layout file</strong> to <strong>wh-full-width</strong>. Save.</li><li>Open the page in Page Builder. Drag widgets into the drop zone that fills the page.</li><li>Start with a <strong>Hero</strong>. Set <strong>Layout › Height</strong> to <strong>Short</strong> and <strong>Heading level</strong> to <strong>H1</strong>. The Hero heading is the page title.</li></ol>
+<p>The breadcrumbs sit on top of the Hero. They follow the page&#x27;s parent page. To show Home / Custom Orders / the page, set the parent page to Custom Orders.</p>
+<h3 id="widgets-for-inner-pages">Widgets for inner pages</h3>
+<div class="table-wrap"><table><tr><th>Widget</th><th>What it shows</th></tr><tr><td>Steps</td><td>Up to 4 numbered steps on light cards, then a one-line note with a link.</td></tr><tr><td>Photo Feature</td><td>Text beside a photo or a YouTube video. Up to 4 points with icons, and two buttons.</td></tr><tr><td>Info Cards</td><td>Up to 8 cards with a photo, label, title and text. 3 or 4 cards per row.</td></tr><tr><td>Tag Links</td><td>Up to 16 rounded links, then a dotted link.</td></tr><tr><td>Call to Action</td><td>A dark box with a heading, two buttons, an email line and a photo.</td></tr></table></div>
+<p>Photo Feature settings to know:</p>
+<ul><li><strong>Layout › Photo or video</strong>: put the photo on the left or the right. Alternate them down the page.</li><li><strong>Layout › Text color</strong>: Dark on light backgrounds, Light on dark ones.</li><li><strong>Video</strong>: paste a YouTube address to show the video instead of the photo. Set <strong>Button 1 › Icon</strong> to <strong>Play</strong> and the button starts the video.</li><li><strong>Point 1–4</strong>: a point with no title is hidden. Pick <strong>None</strong> as the icon for a point without one.</li></ul>
+<p>Info Cards: pick <strong>Card style › Outlined</strong> on a dark background. Leave a card&#x27;s title empty to hide the card.</p>
+<h3 id="spacing-between-sections">Spacing between sections</h3>
+<p>These five widgets have a <strong>Spacing</strong> section. Use it when two widgets share one background color.</p>
+<ul><li>Set <strong>Space below</strong> to <strong>Small</strong> on the upper widget.</li><li>Set <strong>Space above</strong> to <strong>Small</strong> on the lower widget.</li></ul>
+<p>The two then read as one section. <strong>None</strong> removes the space.</p>
+<h3 id="built-in-textures">Built-in textures</h3>
+<p>Photo Feature and Info Cards have <strong>Background › Built-in texture</strong>. Match the texture to the color, as in Mona&#x27;s design:</p>
+<ul><li><strong>Leather, multiplied</strong> on Saddle brown.</li><li><strong>Leather, soft light</strong> on Dark brown.</li><li><strong>Barn wood, 30%</strong> on Dark brown.</li><li><strong>Barn wood, soft light</strong> on Walnut brown.</li></ul>
+<h2 id="backgrounds-and-photos">Backgrounds and photos</h2>
+<p>Every widget with a background has a <strong>Background</strong> section. The settings work the same in each one.</p>
+<div class="table-wrap"><table><tr><th>Setting</th><th>What it does</th></tr><tr><td>Background Color: Show</td><td>Uses the color picked below it.</td></tr><tr><td>Background Color: None</td><td>No color. The paper texture of the page shows through.</td></tr><tr><td>Background Image: Show</td><td>Shows the image on top of the color.</td></tr><tr><td>Background Image: None</td><td>Hides the image. The image stays saved for later.</td></tr><tr><td>Image focus</td><td>Picks the part of the photo kept in view when it is cropped, for example Top or Left.</td></tr><tr><td>Darken image</td><td>Darkens the photo so light text stays readable.</td></tr><tr><td>Texture</td><td>A pattern over the background color. Tile repeats it. Fill stretches it.</td></tr></table></div>
+<p>Photos always fill their area. A wide screen and a phone crop the same photo differently. Check both after a change.</p>
+<p>Photos that carry meaning have an <strong>Image description (alt text)</strong> field. Describe what the photo shows in a short sentence, for example &quot;Bronze bison buckle on a leather belt&quot;. Screen readers read it aloud, and search engines use it.</p>
+<p>Page Builder cannot clear a color or an image once picked. Use <strong>None</strong> instead.</p>
+<h3 id="photo-sizes">Photo sizes</h3>
+<ul><li>Hero and Feature Band: at least 2400 pixels wide.</li><li>Cards and the Text &amp; Photo section: at least 1200 pixels wide.</li><li>Gallery: landscape photos (4:3). The large photo at least 1440 pixels wide, the small ones at least 700.</li><li>Use JPG for photos. Keep each file under 500 KB.</li></ul>
+<h3 id="find-uploaded-images">Find uploaded images</h3>
+<p>Every image uploaded in Page Builder is stored in <strong>Storefront › Image Manager</strong>. Upload, rename or delete images there. Page Builder&#x27;s image picker shows the same images.</p>
+<p>Product photos are not in the Image Manager. They are stored on each product.</p>
+<h2 id="categories">Categories</h2>
+<p>Edit categories in Products › Product Categories.</p>
+<h3 id="rename-a-category-without-changing-its-url">Rename a category without changing its URL</h3>
+<p>Renaming a category also changes its URL. Old links to it then break. To keep the URL:</p>
+<ol><li>Open the category.</li><li>Copy the URL from the <strong>URL</strong> field.</li><li>Change the <strong>Display name</strong>.</li><li>Paste the old URL back into the <strong>URL</strong> field.</li><li>Leave <strong>Create redirect</strong> unticked.</li><li>Save.</li></ol>
+<h3 id="move-a-category-to-a-new-url-on-purpose">Move a category to a new URL on purpose</h3>
+<ol><li>Change the name, parent or URL.</li><li>Tick <strong>Create redirect</strong>. Old links then lead to the new address.</li><li>Save.</li></ol>
+<h3 id="menu-links-to-categories">Menu links to categories</h3>
+<p>The menu links use the category URL. After a URL changes, update the link in Page Builder. See <em>Edit the main menu</em>.</p>
+<h3 id="agency-tiles">Agency tiles</h3>
+<p>The Gov. Agency Items dropdown shows one tile per subcategory of Gov&#x27;t Agency Items.</p>
+<ul><li><strong>Add an agency</strong>: create a category with Gov&#x27;t Agency Items as its parent. A tile appears.</li><li><strong>Change a tile&#x27;s logo</strong>: upload the logo in the category&#x27;s <strong>Image</strong> field. Use a square image.</li><li><strong>Change a tile&#x27;s name</strong>: rename the category. Follow the steps above to keep its URL.</li><li><strong>Change the order</strong>: change the category&#x27;s <strong>Sort order</strong>.</li></ul>
+<h2 id="add-a-new-page-and-link-it-from-the-menu">Add a new page and link it from the menu</h2>
+<p>Some menu links still go to westernheritage.com. Replace each one when its new page is ready.</p>
+<ol><li>Go to Storefront › Web Pages and click <strong>Create a Web Page</strong>.</li><li>Enter the page name and a short URL that says what the page is, for example /mold-making/. Check the URL every time, also on a copied page: don&#x27;t keep a copy&#x27;s address. Untick <strong>Show in navigation menu</strong>. The main menu does not use that setting.</li><li>Add the content and save. The page is live at once.</li><li>Open Page Builder and open the dropdown that should link to it.</li><li>Click the column and find the link under <strong>Links</strong>.</li><li>Replace the westernheritage.com URL with the new page&#x27;s URL, for example <code>/mold-making/</code>.</li><li>Save and publish.</li></ol>
+<p>To add the page as a new link instead, type it in the next empty link slot.</p>
+<h2 id="logo">Logo</h2>
+<p>The header shows the store logo. Change it in Storefront › Logo.</p>
+<ol><li>Pick <strong>Upload a custom image</strong>.</li><li>Upload the logo as a PNG with a clear background.</li><li>Set <strong>Logo size</strong> to <strong>Original</strong>.</li></ol>
+<p>The header shows the logo 60 pixels tall. Upload it at least 120 pixels tall so it stays sharp on phones.</p>
+<h2 id="what-still-needs-a-developer">What still needs a developer</h2>
+<p>These changes are in the theme code. Ask your developer.</p>
+<ul><li>Add, remove or rename a top-level menu item, such as <strong>Our Craft</strong>.</li><li>Change fonts, colors or spacing.</li><li>Add a new kind of widget or section.</li><li>The text in the dark top bar: &quot;Veteran-owned • Handcrafted in Loveland, Colorado • Since 1976&quot;, the phone number and Contact us.</li></ul>
+            <a class="to-top" href="#top">Back to top &uarr;</a>
+        </div>
+    </main>
+</div>
+<script>
+(function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+    var targets = links.map(function (a) { return document.getElementById(a.dataset.target); });
+    var btn = document.querySelector('.menu-btn');
+    var scrim = document.querySelector('.scrim');
+
+    function setOpen(open) {
+        document.body.classList.toggle('toc-open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    btn.addEventListener('click', function () { setOpen(!document.body.classList.contains('toc-open')); });
+    scrim.addEventListener('click', function () { setOpen(false); });
+    links.forEach(function (a) { a.addEventListener('click', function () { setOpen(false); }); });
+    document.querySelector('.to-top').addEventListener('click', function (e) { e.preventDefault(); window.scrollTo(0, 0); });
+
+    // Highlight the section on screen; open its group in the contents
+    var current = null;
+    function update() {
+        var y = 120, idx = 0;
+        for (var i = 0; i < targets.length; i++) { if (targets[i] && targets[i].getBoundingClientRect().top <= y) idx = i; }
+        var a = links[idx];
+        if (a === current) return;
+        if (current) current.classList.remove('is-active');
+        document.querySelectorAll('.toc-l2.is-open').forEach(function (li) { li.classList.remove('is-open'); });
+        a.classList.add('is-active');
+        var group = a.closest('.toc-l2');
+        if (group) group.classList.add('is-open');
+        current = a;
+        // keep the active link visible in a long sidebar
+        var side = document.getElementById('toc');
+        var top = a.offsetTop, h = side.clientHeight;
+        if (top < side.scrollTop + 40 || top > side.scrollTop + h - 60) side.scrollTop = top - h / 3;
+    }
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+        if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; update(); }); }
+    }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+})();
+</script>
+</body>
+</html>
