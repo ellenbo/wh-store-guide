@@ -158,7 +158,7 @@ tr:last-child td { border-bottom: 0; }
 <header class="topbar">
     <button class="menu-btn" type="button" aria-controls="toc" aria-expanded="false">&#9776; Contents</button>
     <h1 class="topbar__title">Western Heritage <span>Store Guide</span></h1>
-    <span class="topbar__updated">Updated 22 Oct 2026</span>
+    <span class="topbar__updated">Updated 26 Oct 2026</span>
 </header>
 <div class="scrim" aria-hidden="true"></div>
 <div class="layout">
@@ -223,6 +223,8 @@ tr:last-child td { border-bottom: 0; }
 <li><a href="#rename-a-category-without-changing-its-url" data-target="rename-a-category-without-changing-its-url">Rename a category without changing its URL</a></li>
 <li><a href="#move-a-category-to-a-new-url-on-purpose" data-target="move-a-category-to-a-new-url-on-purpose">Move a category to a new URL on purpose</a></li>
 <li><a href="#menu-links-to-categories" data-target="menu-links-to-categories">Menu links to categories</a></li>
+<li><a href="#change-the-order-of-categories" data-target="change-the-order-of-categories">Change the order of categories</a></li>
+<li><a href="#category-sidebar" data-target="category-sidebar">The sidebar on product lists</a></li>
 <li><a href="#agency-tiles" data-target="agency-tiles">Agency tiles</a></li>
 </ul></li>
 <li class="toc-l2"><a href="#add-a-new-page-and-link-it-from-the-menu" data-target="add-a-new-page-and-link-it-from-the-menu">Add a new page and link it from the menu</a><ul class="toc-sub">
@@ -481,7 +483,7 @@ tr:last-child td { border-bottom: 0; }
 <figure class="shot"><img src="images/texture-workbench.jpg" alt="Workbench photo" loading="lazy"><figcaption>Workbench photo</figcaption></figure>
 <p>For any other texture or photo, upload it under <strong>Background › Image</strong>. See <a href="#backgrounds-and-photos">Backgrounds and photos</a>.</p>
 <h2 id="categories">Categories</h2>
-<p>Edit categories in Products › Product Categories.</p>
+<p>Edit categories in Products › Categories.</p>
 <h3 id="rename-a-category-without-changing-its-url">Rename a category without changing its URL</h3>
 <p>Renaming a category also changes its URL. Old links to it then break. To keep the URL:</p>
 <ol><li>Open the category.</li><li>Copy the URL from the <strong>URL</strong> field.</li><li>Change the <strong>Display name</strong>.</li><li>Paste the old URL back into the <strong>URL</strong> field.</li><li>Leave <strong>Create redirect</strong> unticked.</li><li>Save.</li></ol>
@@ -489,6 +491,18 @@ tr:last-child td { border-bottom: 0; }
 <ol><li>Change the name, parent or URL.</li><li>Tick <strong>Create redirect</strong>. Old links then lead to the new address.</li><li>Save.</li></ol>
 <h3 id="menu-links-to-categories">Menu links to categories</h3>
 <p>The menu links use the category URL. After a URL changes, update the link in Page Builder. See <em>Edit the main menu</em>.</p>
+<h3 id="change-the-order-of-categories">Change the order of categories</h3>
+<p>Each category has a <strong>Sort order</strong> number. Lower numbers come first. Subcategories are ordered the same way inside their parent.</p>
+<ol><li>Open the category.</li><li>Change <strong>Sort order</strong>. Leave gaps (10, 20, 30) so you can slot one in later.</li><li>Save.</li></ol>
+<p>The order shows in the sidebar category list and wherever the store lists categories. The main menu has its own order, set in Page Builder.</p>
+<h3 id="category-sidebar">The sidebar on product lists</h3>
+<p>Category, brand and search pages have a sidebar with two parts.</p>
+<p><strong>Categories</strong> (top): every visible category, in Sort order. The category the shopper is on opens and shows in rust. Use + and − to open the others.</p>
+<ul><li>To leave a category out, hide it (untick <strong>Visible</strong> in the category).</li><li>To switch the list off: Storefront › Themes › Customize › Theme Styles › <strong>Sidebar</strong> › untick <strong>Show All Categories</strong>.</li></ul>
+<p><strong>Refine by</strong> (in the brown box): the filters, such as Price, Rating and Other. Set them in Products › Filtering.</p>
+<ul><li><strong>Show or hide a filter</strong>: tick or untick <strong>Visible</strong>.</li><li><strong>Change the order</strong>: drag the filter by its handle.</li><li><strong>Open or closed when the page loads</strong>: open the filter&#x27;s settings and change whether it starts collapsed. Keep them open so shoppers see the choices.</li></ul>
+<p>The other Sidebar options in Theme Styles (Products Block, Advertisement Image, Custom Block) don&#x27;t show on these pages while filters are on.</p>
+<p><strong>Theme Styles changes:</strong> tell your developer about any change you make in Theme Styles, such as products per row. A theme update starts from the theme&#x27;s own settings and would undo it otherwise.</p>
 <h3 id="agency-tiles">Agency tiles</h3>
 <p>The Gov. Agency Items dropdown shows one tile per subcategory of Gov&#x27;t Agency Items.</p>
 <ul><li><strong>Add an agency</strong>: create a category with Gov&#x27;t Agency Items as its parent. A tile appears.</li><li><strong>Change a tile&#x27;s logo</strong>: upload the logo in the category&#x27;s <strong>Image</strong> field. Use a square image.</li><li><strong>Change a tile&#x27;s name</strong>: rename the category. Follow the steps above to keep its URL.</li><li><strong>Change the order</strong>: change the category&#x27;s <strong>Sort order</strong>.</li></ul>
