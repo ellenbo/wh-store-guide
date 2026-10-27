@@ -158,7 +158,7 @@ tr:last-child td { border-bottom: 0; }
 <header class="topbar">
     <button class="menu-btn" type="button" aria-controls="toc" aria-expanded="false">&#9776; Contents</button>
     <h1 class="topbar__title">Western Heritage <span>Store Guide</span></h1>
-    <span class="topbar__updated">Updated 26 Oct 2026</span>
+    <span class="topbar__updated">Updated 27 Oct 2026</span>
 </header>
 <div class="scrim" aria-hidden="true"></div>
 <div class="layout">
@@ -225,6 +225,8 @@ tr:last-child td { border-bottom: 0; }
 <li><a href="#menu-links-to-categories" data-target="menu-links-to-categories">Menu links to categories</a></li>
 <li><a href="#change-the-order-of-categories" data-target="change-the-order-of-categories">Change the order of categories</a></li>
 <li><a href="#category-sidebar" data-target="category-sidebar">The sidebar on product lists</a></li>
+<li><a href="#category-page-top" data-target="category-page-top">The top of a category page</a></li>
+<li><a href="#category-page-sections" data-target="category-page-sections">Sections on category pages</a></li>
 <li><a href="#agency-tiles" data-target="agency-tiles">Agency tiles</a></li>
 </ul></li>
 <li class="toc-l2"><a href="#add-a-new-page-and-link-it-from-the-menu" data-target="add-a-new-page-and-link-it-from-the-menu">Add a new page and link it from the menu</a><ul class="toc-sub">
@@ -273,7 +275,7 @@ tr:last-child td { border-bottom: 0; }
 <figure class="shot"><img src="images/page-photo-links.jpg" alt="Photo &amp; Links widget" loading="lazy"><figcaption>Photo &amp; Links</figcaption></figure>
 <p><strong>Craft Video</strong>: text beside a YouTube video, then up to 4 points with icons.</p>
 <figure class="shot"><img src="images/page-craft-video.jpg" alt="Craft Video widget" loading="lazy"><figcaption>Craft Video</figcaption></figure>
-<p><strong>Story &amp; FAQs</strong>: a short story with a portrait on the left, questions that open on the right.</p>
+<p><strong>Story &amp; FAQs</strong>: a short story with a portrait on the left, questions that open on the right. An optional wide photo can go above the story.</p>
 <figure class="shot"><img src="images/page-story-faqs.jpg" alt="Story &amp; FAQs widget" loading="lazy"><figcaption>Story &amp; FAQs</figcaption></figure>
 <p><strong>Testimonials</strong>: one customer quote at a time, with arrows.</p>
 <figure class="shot"><img src="images/page-testimonials.jpg" alt="Testimonials widget" loading="lazy"><figcaption>Testimonials</figcaption></figure>
@@ -285,7 +287,7 @@ tr:last-child td { border-bottom: 0; }
 <figure class="shot"><img src="images/page-newsletter.jpg" alt="Newsletter widget" loading="lazy"><figcaption>Newsletter</figcaption></figure>
 <p><strong>Steps</strong>: up to 4 numbered steps, then a one-line note with a link.</p>
 <figure class="shot"><img src="images/page-steps.jpg" alt="Steps widget" loading="lazy"><figcaption>Steps</figcaption></figure>
-<p><strong>Photo Feature</strong>: text beside a photo or a video, with up to 4 points and two buttons. The paragraphs and point text are typed on the page. Use Light text on dark backgrounds.</p>
+<p><strong>Photo Feature</strong>: text beside a photo or a video, with up to 4 points and two buttons. The paragraphs and point text are typed on the page. Use Light text on dark backgrounds. Set <strong>Width</strong> to Box to keep the background inside the page width.</p>
 <figure class="shot"><img src="images/page-photo-feature-light.jpg" alt="Photo Feature, dark text widget" loading="lazy"><figcaption>Photo Feature, dark text</figcaption></figure>
 <figure class="shot"><img src="images/page-photo-feature-dark.jpg" alt="Photo Feature, light text widget" loading="lazy"><figcaption>Photo Feature, light text</figcaption></figure>
 <p><strong>Info Cards</strong>: up to 8 cards with a photo, label, title and text. Choose 3 or 4 per row, white or outlined cards. With 7 or 8 cards, the widget always shows 4 per row.</p>
@@ -503,6 +505,15 @@ tr:last-child td { border-bottom: 0; }
 <ul><li><strong>Show or hide a filter</strong>: tick or untick <strong>Visible</strong>.</li><li><strong>Change the order</strong>: drag the filter by its handle.</li><li><strong>Open or closed when the page loads</strong>: open the filter&#x27;s settings and change whether it starts collapsed. Keep them open so shoppers see the choices.</li></ul>
 <p>The other Sidebar options in Theme Styles (Products Block, Advertisement Image, Custom Block) don&#x27;t show on these pages while filters are on.</p>
 <p><strong>Theme Styles changes:</strong> tell your developer about any change you make in Theme Styles, such as products per row. A theme update starts from the theme&#x27;s own settings and would undo it otherwise.</p>
+<h3 id="category-page-top">The top of a category page</h3>
+<p>The top of every category page comes from the category itself. Edit it in Products › Categories › the category.</p>
+<div class="table-wrap"><table><tr><th>On the page</th><th>Where it comes from</th></tr><tr><td>Small heading</td><td>The category <strong>Name</strong></td></tr><tr><td>Large heading</td><td><strong>Page title</strong> (in the SEO section). Leave it empty to show the category name.</td></tr><tr><td>Text</td><td><strong>Description</strong>. Empty shows placeholder text.</td></tr><tr><td>Photo</td><td><strong>Image</strong>. Empty shows the Western Heritage logo photo. Use a landscape photo; it is cropped to about 3:2.</td></tr></table></div>
+<p>The Page title is also the title in the browser tab and in search results. Write it for people, not as a list of keywords. Don&#x27;t end it with &quot; - &quot; and the store name: the page then shows the category name instead.</p>
+<h3 id="category-page-sections">Sections on category pages</h3>
+<p>Open any category page in Page Builder. There are four drop zones. Three are shared: edit them once and the change shows on every category.</p>
+<ul><li><strong>Category info bar · every category</strong>: the light Trust Bar under the photo. Edit it once; it changes on every category.</li><li><strong>Under the products · this category</strong>: empty. Add a section here for one category only.</li><li><strong>Category craft video · every category</strong>: &quot;Every buckle, cast by hand.&quot; with the casting video (Photo Feature).</li><li><strong>Category story &amp; FAQs · every category</strong>: the &quot;Made by hand&quot; Story &amp; FAQs.</li></ul>
+<p>Two settings made for these sections:</p>
+<ul><li><strong>Photo Feature › Layout › Width › Box</strong>: the background color fills a box inside the page width, not the whole band.</li><li><strong>Story &amp; FAQs › Wide photo</strong>: a short, wide photo above the large italic text. Upload one, or pick a <strong>Built-in photo</strong> (the hands photo is built in). Leave <strong>Person › Name</strong> empty to hide the portrait.</li></ul>
 <h3 id="agency-tiles">Agency tiles</h3>
 <p>The Gov. Agency Items dropdown shows one tile per subcategory of Gov&#x27;t Agency Items.</p>
 <ul><li><strong>Add an agency</strong>: create a category with Gov&#x27;t Agency Items as its parent. A tile appears.</li><li><strong>Change a tile&#x27;s logo</strong>: upload the logo in the category&#x27;s <strong>Image</strong> field. Use a square image.</li><li><strong>Change a tile&#x27;s name</strong>: rename the category. Follow the steps above to keep its URL.</li><li><strong>Change the order</strong>: change the category&#x27;s <strong>Sort order</strong>.</li></ul>
