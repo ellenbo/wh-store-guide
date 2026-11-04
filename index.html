@@ -101,6 +101,35 @@ code { font: 0.92em ui-monospace, SFMono-Regular, Menlo, monospace; background: 
 .toc-l2.is-open > .toc-sub { display: block; }
 .toc a.is-active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
 
+/* Search */
+.search { position: relative; margin: 0 0 18px; }
+.search__input {
+    width: 100%; padding: 9px 34px 9px 12px;
+    border: 1px solid var(--line); border-radius: 8px;
+    background: var(--page); color: var(--ink);
+    font: inherit; font-size: 14px;
+}
+.search__input::placeholder { color: var(--muted); }
+.search__input:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
+.search__clear {
+    position: absolute; top: 50%; right: 6px; transform: translateY(-50%);
+    width: 26px; height: 26px; padding: 0; border: 0; border-radius: 6px;
+    background: none; color: var(--muted); font-size: 18px; line-height: 1; cursor: pointer;
+}
+.search__clear:hover { background: var(--accent-soft); color: var(--ink); }
+.search__status { margin: 0 0 8px 10px; font-size: 12.5px; color: var(--muted); }
+.search-results { list-style: none; margin: 0; padding: 0; }
+.search-results a {
+    display: block; padding: 8px 10px; border-radius: 6px;
+    color: var(--body); text-decoration: none; font-size: 13.5px; line-height: 1.4;
+}
+.search-results a:hover, .search-results a:focus-visible { background: var(--accent-soft); color: var(--ink); }
+.search-results__title { display: block; font-weight: 600; color: var(--ink); }
+.search-results__where { display: block; font-size: 12px; color: var(--muted); }
+.search-results__snippet { display: block; margin-top: 2px; }
+.is-searching .toc, .is-searching > .sidebar__label { display: none; }
+mark, .search-hit { background: #f6dd9c; color: #1c1c19; border-radius: 2px; padding: 0 1px; }
+
 /* Content */
 .content { min-width: 0; padding: 40px clamp(20px, 5vw, 64px) 96px; }
 .content__inner { max-width: 860px; }
@@ -158,11 +187,18 @@ tr:last-child td { border-bottom: 0; }
 <header class="topbar">
     <button class="menu-btn" type="button" aria-controls="toc" aria-expanded="false">&#9776; Contents</button>
     <h1 class="topbar__title">Western Heritage <span>Store Guide</span></h1>
-    <span class="topbar__updated">Updated 27 Oct 2026</span>
+    <span class="topbar__updated">Updated 4 Nov 2026</span>
 </header>
 <div class="scrim" aria-hidden="true"></div>
 <div class="layout">
     <nav class="sidebar" id="toc" aria-label="Contents">
+        <div class="search" role="search">
+            <label class="sidebar__label" for="guide-search">Search</label>
+            <input class="search__input" id="guide-search" type="search" placeholder="e.g. newsletter, gallery, URL" autocomplete="off">
+            <button class="search__clear" type="button" aria-label="Clear search" hidden>&times;</button>
+        </div>
+        <p class="search__status" aria-live="polite" hidden></p>
+        <ul class="search-results" hidden></ul>
         <p class="sidebar__label">Contents</p>
         <ul class="toc">
 <li class="toc-l2"><a href="#before-you-start" data-target="before-you-start">Before you start</a><ul class="toc-sub">
@@ -245,6 +281,7 @@ tr:last-child td { border-bottom: 0; }
     <main class="content">
         <div class="content__inner">
 <p class="intro">This guide shows Western Heritage staff how to update the store. Most changes happen in the BigCommerce admin or in Page Builder. No code is needed.</p>
+<p>To find a topic, type a word in <strong>Search</strong> at the top of the contents, for example <em>newsletter</em> or <em>gallery</em>. Click a result to go to that section; the words you searched for are highlighted there. Press <kbd>/</kbd> to jump to the search box, and <kbd>Esc</kbd> to clear it. On a phone, tap <strong>Contents</strong> first.</p>
 <h2 id="before-you-start">Before you start</h2>
 <p>You edit the store in two places.</p>
 <div class="table-wrap"><table><tr><th>What you change</th><th>Where</th></tr><tr><td>Products, categories, prices, logo, web pages</td><td>BigCommerce admin</td></tr><tr><td>Home page sections and the main menu dropdowns</td><td>Page Builder (Storefront › My Themes › <strong>Edit in Page Builder</strong>)</td></tr></table></div>
@@ -440,13 +477,15 @@ tr:last-child td { border-bottom: 0; }
 <h3 id="the-gallery-page">The Gallery page</h3>
 <p>The Gallery page is one <strong>Photo Gallery</strong> widget. Photos are added in Page Builder. No HTML is needed.</p>
 <p>To make the page:</p>
-<ol><li>Go to <strong>Storefront › Web Pages › Create a Web Page</strong>. Name it Gallery. Leave the page&#x27;s own text box empty and <strong>Template Layout File</strong> on <strong>default</strong>. Save.</li><li>Open the page in Page Builder. Drag <strong>Photo Gallery</strong> into <strong>Page Builder Content · this page</strong>.</li><li>Type the small heading and the heading. Keep <strong>Heading level</strong> on <strong>H1</strong>: the heading is the page title.</li><li>Add the photos (below). <strong>Save</strong>, then <strong>Publish</strong>.</li></ol>
-<p>To add a photo:</p>
-<ol><li>Click the gallery. In the side panel, open <strong>Photos</strong>.</li><li>Click <strong>+ Add photo</strong>. Click the new photo in the list.</li><li>Upload or choose the <strong>Photo</strong>. Type the <strong>Image description</strong>: what the photo shows, for people who can&#x27;t see it.</li><li>Optional: type a <strong>Caption</strong>. It shows under the photo and when the photo is enlarged.</li><li>Optional: add a <strong>Link</strong>, for example <code>/belt-buckles/</code>. The caption then links there. A link needs a caption.</li></ol>
-<p>To change the order, drag a photo up or down in the <strong>Photos</strong> list. To remove a photo, delete it from the list.</p>
-<p>Photo Gallery settings to know:</p>
-<ul><li><strong>Layout › Photo shape</strong>: Square, Landscape or Portrait crop every photo to the same shape. <strong>As uploaded</strong> shows each whole photo; rows are then uneven.</li><li><strong>Layout › Click a photo to</strong>: <strong>Enlarge it</strong> shows the photo large, with arrows to the next one. Visitors close it with the X, Esc, or a click outside the photo.</li><li><strong>Layout › Photos shown at first</strong>: the rest wait behind a <strong>Show more photos</strong> button. Each click shows the same number again. Page Builder always shows every photo.</li><li><strong>Layout › Text color</strong>: pick Light on a dark background.</li></ul>
-<p>Square photos work best for Square. Use photos at least 900 pixels wide, so they stay sharp when enlarged.</p>
+<ol><li>Go to <strong>Storefront › Web Pages › Create a Web Page</strong>. Name it Gallery. Leave the page&#x27;s own text box empty and <strong>Template Layout File</strong> on <strong>default</strong>. Save.</li><li>Open the page in Page Builder. Drag <strong>Photo Gallery</strong> into <strong>Page Builder Content · this page</strong>.</li><li>Change the headings and add the photos (below). <strong>Save</strong>, then <strong>Publish</strong>.</li></ol>
+<p><strong>Change the small heading or the heading</strong></p>
+<p>Click the text on the page, &quot;A look at the work&quot; or &quot;Gallery.&quot;, and type. They aren&#x27;t in the side panel: when a widget has a photo list, Page Builder shows only the list there. A small toolbar offers bold and italic. Delete all the text of the small heading to hide it.</p>
+<p><strong>Add a photo</strong></p>
+<ol><li>Click the gallery. The side panel shows the <strong>Photo Gallery</strong> list.</li><li>Click <strong>+</strong> at the top right of the list. A new photo is added at the end. Click it in the list.</li><li>Upload or choose the <strong>Photo</strong>. Type the <strong>Image description</strong>: what the photo shows, for people who can&#x27;t see it.</li><li>Optional: type a <strong>Caption</strong>. It shows under the photo and when the photo is enlarged.</li><li>Optional: add a <strong>Link</strong>, for example <code>/belt-buckles/</code>. The caption then links there. A link needs a caption.</li></ol>
+<p>To change the order, drag a photo by its handle (the dots on its left) up or down the list. To remove a photo, click the <strong>⋯</strong> beside it. The arrows beside the photo&#x27;s name step to the previous or next photo.</p>
+<p>How the gallery shows the photos:</p>
+<ul><li>Every photo is cropped to a square, 3 across (2 on phones). Square photos look best.</li><li>Clicking a photo shows it large, with arrows to the next one. Visitors close it with the X, Esc, or a click outside the photo.</li><li>12 photos show at first. A <strong>Show more photos</strong> button shows 12 more each time. Page Builder always shows every photo.</li></ul>
+<p>Use photos at least 900 pixels wide, so they stay sharp when enlarged. To change the photo shape, the number shown at first or the background, ask the developer: those settings can&#x27;t be in the side panel next to a photo list.</p>
 <h3 id="link-to-a-section">Link to a section</h3>
 <p>Every widget has an <strong>Additional</strong> section with a <strong>Section link name</strong>. Use it to jump to a widget from a button or link on the same page.</p>
 <ol><li>Type a short name in <strong>Section link name</strong>, for example <code>chapter-1976</code>. Use letters, numbers and dashes. No spaces, no <code>#</code>.</li><li>In the button or link that should jump there, type <code>#chapter-1976</code> as the address.</li></ol>
@@ -489,7 +528,20 @@ tr:last-child td { border-bottom: 0; }
 <p>To add a widget, drag it from <strong>CUSTOM</strong> into one of these drop zones. It shows on every product. Don&#x27;t put text about one product there. Put that in the product&#x27;s description in <strong>Products</strong>.</p>
 <p>To remove a block from every product, click its widget and delete it. If the block has a quick link at the top of the page, the link hides itself.</p>
 <h3 id="edit-before-you-order">Edit Before You Order</h3>
-<ul><li>Click a tab&#x27;s text on the page to edit it. Bold, italic and links are in the small toolbar.</li><li>The table and the short-section headings are in the widget&#x27;s <strong>Tab 1</strong> to <strong>Tab 3</strong> settings. Leave <strong>Table row 1: left</strong> empty to hide the table.</li><li><strong>Tab link name</strong>: a link to <code>#shipping</code> or <code>#returns</code> anywhere on the page opens that tab. The info bar&#x27;s links use them.</li></ul>
+<p>Before You Order is one <strong>Info Tabs</strong> widget shared by every product. A change on one product shows on all of them.</p>
+<p>Each tab (Shipping, Returns &amp; Tax, and a third if you name it) holds, top to bottom:</p>
+<ul><li><strong>Text</strong>: any number of paragraphs, typed on the page.</li><li><strong>A table</strong> of up to 8 rows, two columns, typed in the side panel. Optional.</li><li><strong>Up to 6 blocks</strong>, each a heading (side panel) with text under it (typed on the page). Optional.</li></ul>
+<p>To open it: open any product on the store, click <strong>Design this page in Page Builder</strong>, scroll to Before You Order and click the tab you want to change.</p>
+<p><strong>Add or change text</strong></p>
+<ol><li>Click the text in the tab and type. Press Enter for a new paragraph.</li><li>Use the small toolbar for bold, italic, underline and links.</li><li><strong>Save</strong>, then <strong>Publish</strong>.</li></ol>
+<p><strong>Add a heading with text under it</strong></p>
+<p>Each tab has 6 blocks. A block is a heading with text under it. Returns &amp; Tax uses blocks 1 to 4 (Returns, Sales Tax, Payment, Questions?), so blocks 5 and 6 are free.</p>
+<ol><li>Click the widget. In the side panel, open the tab&#x27;s settings (<strong>Tab 2</strong> is Returns &amp; Tax).</li><li>Type the heading in the first empty <strong>Block heading</strong>, for example <strong>Block 5 heading</strong>.</li><li>On the page, a dashed box appears under the new heading. Click it and type the text. Press Enter for a new paragraph.</li><li><strong>Save</strong>, then <strong>Publish</strong>.</li></ol>
+<p>To remove a block, clear its heading and delete its text. Blocks show in number order; to put a new one higher up, move the headings and text down one block by one.</p>
+<p><strong>Add table rows</strong>: in the tab&#x27;s settings, fill <strong>Table row 1</strong> to <strong>8</strong>, left and right. Leave a row&#x27;s left box empty to hide that row. With every row empty, there is no table.</p>
+<p>Empty text and empty blocks show as dashed boxes in Page Builder only. Shoppers don&#x27;t see them.</p>
+<p><strong>Tab link name</strong>: a link to <code>#shipping</code> or <code>#returns</code> anywhere on the page opens that tab. The info bar&#x27;s links use them.</p>
+<p>Each tab holds up to 6 blocks and 8 table rows. The text at the top of a tab and the text in each block have no length limit.</p>
 <h3 id="quick-links-and-prev-next">Quick links and Prev / Next</h3>
 <p>Details, Before you order and Why us? jump down the page. A link hides itself when its block isn&#x27;t placed. Prev and Next in the dark bar go to the products before and after this one in the store&#x27;s list.</p>
 <h2 id="backgrounds-and-photos">Backgrounds and photos</h2>
@@ -631,6 +683,151 @@ tr:last-child td { border-bottom: 0; }
     }, { passive: true });
     window.addEventListener('resize', update);
     update();
+})();
+
+// Search: every h2 / h3 section of the guide, all words must match
+(function () {
+    var sidebar = document.getElementById('toc');
+    var input = document.getElementById('guide-search');
+    var clear = document.querySelector('.search__clear');
+    var status = document.querySelector('.search__status');
+    var list = document.querySelector('.search-results');
+    var content = document.querySelector('.content');
+
+    // One entry per heading: its text up to the next heading
+    var sections = [];
+    var parent = '';
+    Array.prototype.forEach.call(content.querySelectorAll('h2[id], h3[id]'), function (h) {
+        if (h.tagName === 'H2') parent = h.textContent.trim();
+        var text = '';
+        for (var el = h.nextElementSibling; el && !/^H[23]$/.test(el.tagName); el = el.nextElementSibling) {
+            text += ' ' + el.textContent;
+        }
+        sections.push({
+            id: h.id,
+            title: h.textContent.trim(),
+            where: h.tagName === 'H3' ? parent : '',
+            text: text.replace(/\s+/g, ' ').trim()
+        });
+    });
+
+    function escapeHtml(s) {
+        return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; });
+    }
+    function escapeRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+    function words(q) { return q.toLowerCase().split(/\s+/).filter(function (w) { return w.length > 0; }); }
+    function markText(s, terms) {
+        var re = new RegExp('(' + terms.map(escapeRe).join('|') + ')', 'gi');
+        return escapeHtml(s).replace(re, '<mark>$1</mark>');
+    }
+    function snippet(text, terms) {
+        var lower = text.toLowerCase(), at = -1;
+        terms.forEach(function (t) { var i = lower.indexOf(t); if (i >= 0 && (at < 0 || i < at)) at = i; });
+        if (at < 0) return text.slice(0, 110) + (text.length > 110 ? '…' : '');
+        var start = Math.max(0, at - 40);
+        var cut = text.slice(start, start + 130);
+        return (start > 0 ? '…' : '') + cut + (start + 130 < text.length ? '…' : '');
+    }
+
+    // Highlights in the page, cleared on each new search
+    function clearHits() {
+        Array.prototype.forEach.call(content.querySelectorAll('mark.search-hit'), function (m) {
+            m.replaceWith(document.createTextNode(m.textContent));
+        });
+        content.normalize();
+    }
+    function highlightSection(id, terms) {
+        clearHits();
+        var h = document.getElementById(id);
+        if (!h || !terms.length) return;
+        var re = new RegExp(terms.map(escapeRe).join('|'), 'gi');
+        var nodes = [h];
+        for (var el = h.nextElementSibling; el && !/^H[23]$/.test(el.tagName); el = el.nextElementSibling) nodes.push(el);
+        nodes.forEach(function (root) {
+            var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+            var texts = [];
+            while (walker.nextNode()) texts.push(walker.currentNode);
+            texts.forEach(function (node) {
+                if (!re.test(node.nodeValue)) return;
+                re.lastIndex = 0;
+                var frag = document.createDocumentFragment(), last = 0, m;
+                while ((m = re.exec(node.nodeValue))) {
+                    frag.appendChild(document.createTextNode(node.nodeValue.slice(last, m.index)));
+                    var mark = document.createElement('mark');
+                    mark.className = 'search-hit';
+                    mark.textContent = m[0];
+                    frag.appendChild(mark);
+                    last = m.index + m[0].length;
+                }
+                frag.appendChild(document.createTextNode(node.nodeValue.slice(last)));
+                node.parentNode.replaceChild(frag, node);
+            });
+        });
+    }
+
+    var terms = [];
+    function run() {
+        var q = input.value.trim();
+        clear.hidden = q === '';
+        terms = words(q);
+        if (q.length < 2) {
+            sidebar.classList.remove('is-searching');
+            status.hidden = true;
+            list.hidden = true;
+            list.innerHTML = '';
+            clearHits();
+            return;
+        }
+        var found = sections.map(function (s) {
+            var title = s.title.toLowerCase(), all = (s.title + ' ' + s.where + ' ' + s.text).toLowerCase();
+            if (!terms.every(function (t) { return all.indexOf(t) >= 0; })) return null;
+            var score = terms.filter(function (t) { return title.indexOf(t) >= 0; }).length;
+            return { s: s, score: score };
+        }).filter(Boolean).sort(function (a, b) { return b.score - a.score; }).slice(0, 40);
+
+        sidebar.classList.add('is-searching');
+        status.hidden = false;
+        status.textContent = found.length ? found.length + (found.length === 1 ? ' section' : ' sections') : 'Nothing found. Try another word.';
+        list.hidden = found.length === 0;
+        list.innerHTML = found.map(function (f) {
+            return '<li><a href="#' + f.s.id + '" data-id="' + f.s.id + '">' +
+                '<span class="search-results__title">' + markText(f.s.title, terms) + '</span>' +
+                (f.s.where ? '<span class="search-results__where">' + escapeHtml(f.s.where) + '</span>' : '') +
+                '<span class="search-results__snippet">' + markText(snippet(f.s.text, terms), terms) + '</span></a></li>';
+        }).join('');
+    }
+
+    input.addEventListener('input', run);
+    input.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { input.value = ''; run(); }
+        if (e.key === 'Enter') { var first = list.querySelector('a'); if (first) first.click(); }
+    });
+    clear.addEventListener('click', function () { input.value = ''; run(); input.focus(); });
+    list.addEventListener('click', function (e) {
+        var a = e.target.closest('a');
+        if (!a) return;
+        // Jump straight there (a smooth scroll lands short when screenshots
+        // load on the way), then again once they have
+        e.preventDefault();
+        highlightSection(a.dataset.id, terms);
+        document.body.classList.remove('toc-open');
+        history.replaceState(null, '', '#' + a.dataset.id);
+        var h = document.getElementById(a.dataset.id);
+        var jump = function () {
+            // clear of the sticky top bar; 'instant' overrides the page's smooth scrolling
+            window.scrollTo({ top: h.getBoundingClientRect().top + window.pageYOffset - 84, behavior: 'instant' });
+        };
+        jump();
+        setTimeout(jump, 500);
+    });
+    // "/" jumps to the search box
+    document.addEventListener('keydown', function (e) {
+        if (e.key === '/' && document.activeElement !== input && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) {
+            e.preventDefault();
+            document.body.classList.add('toc-open');
+            input.focus();
+        }
+    });
 })();
 </script>
 </body>
