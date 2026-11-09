@@ -305,7 +305,7 @@ tr:last-child td { border-bottom: 0; }
 <ul><li><strong>Widget</strong>: a section you add in Page Builder, such as a banner or a column of links.</li><li><strong>Drop zone</strong>: an area in Page Builder that holds widgets. Its name shows in a blue label.</li><li><strong>Every page</strong>: a drop zone whose widgets show on all pages of the store.</li></ul>
 <h2 id="widgets">Widgets</h2>
 <p>Use this list to pick the right widget. In Page Builder, our widgets are under <strong>CUSTOM</strong>. Each one below shows its name as it appears there, and a screenshot of how it looks on the store.</p>
-<p>Use only the CUSTOM widgets. Collapse the <strong>BASIC</strong> group and leave it alone. Basic widgets don&#x27;t match the store&#x27;s design.</p>
+<p>Use only the CUSTOM widgets. Collapse the <strong>BASIC</strong> group and leave it alone. If a Basic widget is added by mistake, it takes the store&#x27;s fonts, link color and button shape, but it doesn&#x27;t have the layout, backgrounds or options of our widgets. Replace it with the matching CUSTOM widget.</p>
 <p>A new widget starts with Lorem Ipsum text and tan placeholder photos showing their size, for example 1200 × 900. Replace all of them before you publish. Links, numbers and years start with real values. Check them too. Testimonials is the exception: it starts with the quotes from the home page.</p>
 <h3 id="page-widgets">Page widgets</h3>
 <p><strong>Blog Posts</strong>: the newest 3 or 6 blog posts.</p>
@@ -743,6 +743,22 @@ tr:last-child td { border-bottom: 0; }
             where: h.tagName === 'H3' ? parent : '',
             text: text.replace(/\s+/g, ' ').trim()
         });
+        // In the Widgets part, each widget ("<strong>Trust Bar</strong>: ...")
+        // is also a result of its own, so a search for its name finds it
+        if (parent !== 'Widgets' || h.tagName !== 'H3') return;
+        for (var p = h.nextElementSibling; p && !/^H[23]$/.test(p.tagName); p = p.nextElementSibling) {
+            var b = p.tagName === 'P' && p.firstElementChild;
+            if (!b || b.tagName !== 'STRONG' || p.textContent.indexOf(b.textContent) !== 0) continue;
+            var name = b.textContent.trim();
+            if (!p.id) p.id = 'w-' + name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+            p.setAttribute('data-search-item', '');
+            sections.push({
+                id: p.id,
+                title: name,
+                where: h.textContent.trim(),
+                text: p.textContent.replace(/\s+/g, ' ').trim()
+            });
+        }
     });
 
     function escapeHtml(s) {
@@ -776,7 +792,12 @@ tr:last-child td { border-bottom: 0; }
         if (!h || !terms.length) return;
         var re = new RegExp(terms.map(escapeRe).join('|'), 'gi');
         var nodes = [h];
-        for (var el = h.nextElementSibling; el && !/^H[23]$/.test(el.tagName); el = el.nextElementSibling) nodes.push(el);
+        if (h.hasAttribute('data-search-item')) {
+            var next = h.nextElementSibling;
+            if (next && next.tagName === 'FIGURE') nodes.push(next);
+        } else {
+            for (var el = h.nextElementSibling; el && !/^H[23]$/.test(el.tagName); el = el.nextElementSibling) nodes.push(el);
+        }
         nodes.forEach(function (root) {
             var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
             var texts = [];
@@ -815,13 +836,14 @@ tr:last-child td { border-bottom: 0; }
         var found = sections.map(function (s) {
             var title = s.title.toLowerCase(), all = (s.title + ' ' + s.where + ' ' + s.text).toLowerCase();
             if (!terms.every(function (t) { return all.indexOf(t) >= 0; })) return null;
-            var score = terms.filter(function (t) { return title.indexOf(t) >= 0; }).length;
+            var score = terms.filter(function (t) { return title.indexOf(t) >= 0; }).length * 2;
+            if (title.indexOf(terms.join(' ')) === 0) score += 1;
             return { s: s, score: score };
         }).filter(Boolean).sort(function (a, b) { return b.score - a.score; }).slice(0, 40);
 
         sidebar.classList.add('is-searching');
         status.hidden = false;
-        status.textContent = found.length ? found.length + (found.length === 1 ? ' section' : ' sections') : 'Nothing found. Try another word.';
+        status.textContent = found.length ? found.length + (found.length === 1 ? ' result' : ' results') : 'Nothing found. Try another word.';
         list.hidden = found.length === 0;
         list.innerHTML = found.map(function (f) {
             return '<li><a href="#' + f.s.id + '" data-id="' + f.s.id + '">' +
