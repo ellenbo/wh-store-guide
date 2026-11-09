@@ -109,7 +109,11 @@ code { font: 0.92em ui-monospace, SFMono-Regular, Menlo, monospace; background: 
     background: var(--page); color: var(--ink);
     font: inherit; font-size: 14px;
 }
+.search__field { position: relative; }
 .search__input::placeholder { color: var(--muted); }
+/* the browser's own clear (x) in search boxes; the guide has its own */
+.search__input::-webkit-search-cancel-button,
+.search__input::-webkit-search-decoration { -webkit-appearance: none; appearance: none; display: none; }
 .search__input:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
 .search__clear {
     position: absolute; top: 50%; right: 6px; transform: translateY(-50%);
@@ -194,8 +198,10 @@ tr:last-child td { border-bottom: 0; }
     <nav class="sidebar" id="toc" aria-label="Contents">
         <div class="search" role="search">
             <label class="sidebar__label" for="guide-search">Search</label>
-            <input class="search__input" id="guide-search" type="search" placeholder="e.g. newsletter, gallery, URL" autocomplete="off">
-            <button class="search__clear" type="button" aria-label="Clear search" hidden>&times;</button>
+            <div class="search__field">
+                <input class="search__input" id="guide-search" type="search" placeholder="e.g. newsletter, gallery, URL" autocomplete="off">
+                <button class="search__clear" type="button" aria-label="Clear search" hidden>&times;</button>
+            </div>
         </div>
         <p class="search__status" aria-live="polite" hidden></p>
         <ul class="search-results" hidden></ul>
