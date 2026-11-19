@@ -197,7 +197,7 @@ tr:last-child td { border-bottom: 0; }
 <header class="topbar">
     <button class="menu-btn" type="button" aria-controls="toc" aria-expanded="false">&#9776; Contents</button>
     <h1 class="topbar__title">Western Heritage <span>Store Guide</span></h1>
-    <span class="topbar__updated">Updated 5 Nov 2026</span>
+    <span class="topbar__updated">Updated 19 Nov 2026</span>
 </header>
 <div class="scrim" aria-hidden="true"></div>
 <div class="layout">
@@ -216,6 +216,7 @@ tr:last-child td { border-bottom: 0; }
 <li class="toc-l2"><a href="#before-you-start" data-target="before-you-start">Before you start</a><ul class="toc-sub">
 <li><a href="#never-do-these" data-target="never-do-these">Never do these</a></li>
 <li><a href="#words-used-in-this-guide" data-target="words-used-in-this-guide">Words used in this guide</a></li>
+<li><a href="#pages-with-old-text" data-target="pages-with-old-text">Pages that still have old text</a></li>
 </ul></li>
 <li class="toc-l2"><a href="#widgets" data-target="widgets">Widgets</a><ul class="toc-sub">
 <li><a href="#page-widgets" data-target="page-widgets">Page widgets</a></li>
@@ -248,6 +249,7 @@ tr:last-child td { border-bottom: 0; }
 <li><a href="#trust-bar-icons" data-target="trust-bar-icons">Trust Bar icons</a></li>
 </ul></li>
 <li class="toc-l2"><a href="#build-a-full-width-page" data-target="build-a-full-width-page">Build a full-width page</a><ul class="toc-sub">
+<li><a href="#convert-a-text-page" data-target="convert-a-text-page">Turn a text page into a widget page</a></li>
 <li><a href="#widgets-for-inner-pages" data-target="widgets-for-inner-pages">Widgets for inner pages</a></li>
 <li><a href="#the-about-page" data-target="the-about-page">The About page</a></li>
 <li><a href="#the-customized-items-page" data-target="the-customized-items-page">The Customized Items page</a></li>
@@ -322,6 +324,8 @@ tr:last-child td { border-bottom: 0; }
 <ul><li><strong>Never click &quot;Update … URLs&quot;</strong> in Settings › URL Structure. It changes the address of every product and category at once. Old links and search results break.</li><li><strong>Never edit option sets</strong> (Products › Option Sets). Their price rules have no backup.</li><li><strong>Never click Apply on another theme</strong> in Storefront › Themes. The live store switches to that theme at once.</li></ul>
 <h3 id="words-used-in-this-guide">Words used in this guide</h3>
 <ul><li><strong>Widget</strong>: a section you add in Page Builder, such as a banner or a column of links.</li><li><strong>Drop zone</strong>: an area in Page Builder that holds widgets. Its name shows in a blue label.</li><li><strong>Every page</strong>: a drop zone whose widgets show on all pages of the store.</li></ul>
+<h3 id="pages-with-old-text">Pages that still have old text</h3>
+<p>Some web pages still have their text typed in <strong>Storefront › Web Pages</strong>, in the page&#x27;s own text box. Page Builder can&#x27;t edit that text, and widgets added to the page look broken until the text is removed. To rebuild one of these pages with widgets, follow <a href="#convert-a-text-page">Turn a text page into a widget page</a>.</p>
 <h2 id="widgets">Widgets</h2>
 <p>Use this list to pick the right widget. In Page Builder, our widgets are under <strong>CUSTOM</strong>. Each one below shows its name as it appears there, and a screenshot of how it looks on the store.</p>
 <p>Page Builder lists the CUSTOM widgets in the order they were added to the store, not A to Z. <strong>Table</strong> was added later, so it is at the very bottom of the list, below the Menu and Footer widgets.</p>
@@ -508,6 +512,12 @@ tr:last-child td { border-bottom: 0; }
 <ol><li>Create the page in <strong>Storefront › Web Pages</strong>, or in Page Builder. Leave the page's own text box empty. A page with no text of its own is full width automatically.</li><li>Open the page in Page Builder. Drag widgets into the drop zone that fills the page, <strong>Page Builder Content · this page</strong>.</li><li>Start with a <strong>Hero</strong>. Leave <strong>Layout › Height</strong> on <strong>Short</strong> and set <strong>Text › Heading level</strong> to <strong>H1</strong>. The Hero heading is the page title.</li></ol>
 <p>The breadcrumbs sit on top of the Hero. They follow the page&#x27;s parent page. To show Home / Custom Orders / the page, set the parent page to Custom Orders.</p>
 <p>Leave <strong>Template Layout File</strong> on <strong>default</strong>. Widgets belong to the layout they were placed in. Changing the layout file hides them from the page. They aren&#x27;t deleted: set it back to default and they return.</p>
+<h3 id="convert-a-text-page">Turn a text page into a widget page</h3>
+<p>Use this for a page whose text was typed in <strong>Storefront › Web Pages</strong> (the page&#x27;s own text box), when you want to rebuild it with widgets.</p>
+<p>Two things to know first:</p>
+<ul><li><strong>The widgets look broken while the old text is still there.</strong> A page with its own text uses the narrow text layout, so full-width widgets don&#x27;t fit. That&#x27;s expected. They look right once the text is removed.</li><li><strong>Page Builder can&#x27;t edit the old text.</strong> It shows on the page, but you can only change or delete it in <strong>Storefront › Web Pages</strong>.</li></ul>
+<ol><li>Open the page in Page Builder.</li><li>Drag the new widgets into <strong>Page Builder Content · this page</strong> and set them up. Copy the wording you want to keep from the old text as you go.</li><li>Click <strong>Save</strong>. <strong>Don&#x27;t click Publish yet.</strong> Saved changes stay private, so customers keep seeing the old page while you work. You can close Page Builder and come back to it.</li><li>When every widget is done, go to <strong>Storefront › Web Pages</strong>, open the page, delete everything in its text box, and save the page.</li><li>Go back to the page in Page Builder. Check that it looks right, then click <strong>Publish</strong>.</li></ol>
+<p>Between steps 4 and 5, customers see the page without the old text or the new widgets, so do step 5 straight after step 4.</p>
 <h3 id="widgets-for-inner-pages">Widgets for inner pages</h3>
 <div class="table-wrap"><table><tr><th>Widget</th><th>What it shows</th></tr><tr><td>Photo Gallery</td><td>A heading and any number of photos, 3 across. Click a photo to see it large.</td></tr><tr><td>Table</td><td>A price table (up to 6 columns and 20 rows) with a heading, text, bullet points, a note and a link, beside a photo or across the page.</td></tr><tr><td>Steps</td><td>Up to 4 numbered steps on light cards, then a one-line note with a link.</td></tr><tr><td>Photo Feature</td><td>Text beside a photo or a YouTube video. Up to 4 points with icons, and two buttons.</td></tr><tr><td>Info Cards</td><td>Up to 8 cards with a photo, label, title and text. 3 or 4 cards per row.</td></tr><tr><td>Tag Links</td><td>Up to 16 rounded links, then a dotted link.</td></tr><tr><td>Call to Action</td><td>A dark box with a heading, two buttons, an email line and a photo.</td></tr><tr><td>Timeline</td><td>Up to 6 dates on a line with gold dots.</td></tr><tr><td>Chapter</td><td>One part of a story: year, heading, text, blocks, photo or video.</td></tr><tr><td>Icon Cards</td><td>A centred heading and up to 4 cards with an icon and a dotted link.</td></tr><tr><td>Crew</td><td>A group photo and up to 10 people.</td></tr><tr><td>Help Links</td><td>Up to 4 links with icons in gold squares.</td></tr></table></div>
 <p>Table settings to know:</p>
